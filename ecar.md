@@ -6,8 +6,8 @@ The extended Cyber Analytics Repository (eCAR) model made by Five Directions is 
 
 CAR defines a three tuple object-action-fields to describe an event. A shortened example of these include:  
 
-Object: file
-Action: open  
+Object: file  
+Action: open   
 Fields: creation_time, file_name, file_path  
 
 ## eCAR Model
@@ -20,17 +20,17 @@ hostname	string
 objectID string - UUID of the Object in event  
 object	ObjectType   
 action	ActionType   
-processID	string - UUID of process performing action  
+actorID	string - UUID of entity performing the action, generally a process or host  
 pid	int - process ID  
 tid	int - thread ID  
-username	string - Username  
+principal	string - user entity performing the action, sometimes for whom the actor is performing an action on behalf of 
 properties	map of strings - key : value of fields  
 
 ### Model Semantics
 
-* a PID, TID, or PPID of -1 generally means that information is not available  
-* a PID of 0 and a ProcessID of "00000000-0000-0000-0000-000000000000" also indicates that those details are not available
-* when process details are present, and "image_path" entry in Event.properties will also typically be present  
+* PID, TID, or PPID of -1 generally means that information is not available  
+* PID of 0 and a ProcessID of "00000000-0000-0000-0000-000000000000" also indicates that those details are not available
+* When process details are present, an "image_path" entry in Event.properties will also typically be present  
 
 ## Example eCAR Object
 ```
@@ -41,11 +41,11 @@ properties	map of strings - key : value of fields
   "objectID": "ece465ca-edf9-48c0-b2be-642ee2dd86d6",
   "object": "PROCESS",
   "action": "CREATE",
-  "processID": "0f0b0dfe-5744-4361-9611-d3a59a1bdfbf",
+  "actorID": "0f0b0dfe-5744-4361-9611-d3a59a1bdfbf",
   "pid": 3648,
   "ppid": 6260,
   "tid": 292,
-  "username": "VAGRANT-C2FDBFN\\vagrant",
+  "principal": "VAGRANT-C2FDBFN\\vagrant",
   "properties": {
     "parent_image_path": "\\Device\\HarddiskVolume1\\cygwin64\\bin\\bash.exe",
     "user": "VAGRANT-C2FDBFN\\vagrant",
